@@ -15,11 +15,24 @@
                 <div class="collapse navbar-collapse" id="navbarsExample07">
                     {% with request.resolver_match.url_name as url_name %}
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link {% if url_name == 'users' %}active{% endif %}" href="#">Пользователи</a></li>
+                            <li class="nav-item"><a class="nav-link {% if url_name == 'users' %}active{% endif %}" href="{% url 'users' %}">Пользователи</a></li>
                         </ul>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link {% if url_name == 'login' %}active{% endif %}" href="#">Вход</a></li>
-                            <li class="nav-item"><a class="nav-link {% if url_name == 'signup' %}active{% endif %}" href="#">Регистрация</a></li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item">
+                                    <form method="post" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button type="submit" class="nav-link btn btn-link">Выход</button>
+                                    </form>
+                                </li>
+                            {% else %}
+                                <li class="nav-item">
+                                    <a class="nav-link {% if url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Вход</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link {% if url_name == 'user_create' %}active{% endif %}" href="{% url 'user_create' %}">Регистрация</a>
+                                </li>
+                            {% endif %}
                         </ul>
                     {% endwith %}
                 </div>
@@ -28,6 +41,14 @@
 
         <main class="flex-grow-1">
             <div class="container-lg mt-3">
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
                 {% block content %}{% endblock %}
             </div>
         </main>
