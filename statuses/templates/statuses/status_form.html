@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h1 class="my-4 text-center">
+            {% if object %}Изменение статуса{% else %}Создание статуса{% endif %}
+        </h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="{{ form.name.id_for_label }}" class="form-label">Имя</label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                    <div class="alert alert-danger mt-2">{{ form.name.errors }}</div>
+                {% endif %}
+            </div>
+            <button type="submit" class="btn btn-success w-100">
+                {% if object %}Изменить{% else %}Создать{% endif %}
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

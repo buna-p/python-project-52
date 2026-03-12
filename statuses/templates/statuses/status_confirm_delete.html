@@ -1,0 +1,7 @@
+{% extends "base_confirm_delete.html" %}
+
+{% block delete_title %}Удаление статуса{% endblock %}
+
+{% block delete_message %}Вы уверены, что хотите удалить статус "{{ object.name }}"?{% endblock %}
+
+{% block cancel_url %}{% url 'statuses' %}{% endblock %}
