@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="my-4">{% block list_title %}{% endblock %}</h1>
+<a href="{% block create_url %}#{% endblock %}" class="btn btn-success mb-3">{% block create_button %}{% endblock %}</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Имя</th>
+            <th class="text-end">Дата создания</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for obj in object_list %}
+            <tr>
+                <td>{{ obj.id }}</td>
+                <td>{% block object_name %}{{ obj.name }}{% endblock %}</td>
+                <td class="text-end">{{ obj.created_at|date:"d.m.Y H:i" }}</td>
+                <td class="text-end">
+                    <a href="{% block update_url %}{% url 'label_update' obj.id %}{% endblock %}" class="btn btn-sm btn-success">Изменить</a>
+                    <a href="{% block delete_url %}{% url 'label_delete' obj.id %}{% endblock %}" class="btn btn-sm btn-dark">Удалить</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
