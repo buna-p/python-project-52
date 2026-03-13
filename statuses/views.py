@@ -43,7 +43,7 @@ class StatusDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
-        #if self.object.task_set.exists():
-        #    messages.error(request, 'Невозможно удалить статус')
-        #    return redirect('statuses')
+        if self.object.task_set.exists():
+            messages.info(request, 'Невозможно удалить статус')
+            return redirect('statuses')
         return super().post(request, *args, **kwargs)

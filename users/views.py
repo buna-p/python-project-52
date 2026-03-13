@@ -3,7 +3,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
@@ -56,6 +55,13 @@ class UserDeleteView(
     def handle_no_permission(self):
         messages.error(self.request, 'У вас нет прав для изменения')
         return redirect('users')
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if self.object.tasks_author.exists() or self.object.tasks_executor.exists():  # noqa: E501
+            messages.info(request, 'Невозможно удалить пользователя, связанного с задачами')  # noqa: E501
+            return redirect('users')
+        return super().post(request, *args, **kwargs)
 
 
 class UserLoginView(LoginView):

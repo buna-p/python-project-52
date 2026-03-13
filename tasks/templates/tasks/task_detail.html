@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="my-4">Просмотр задачи</h1>
+<div class="card">
+    <div class="bg-dark text-white p-3 mb-4 rounded">
+        <h1 class="h3 mb-0">{{ task.name }}</h1>
+    </div>
+    <div>
+        {% if task.description %}
+            <div class="px-3">
+                {{ task.description|linebreaksbr }}
+            </div>
+        {% endif %}
+    </div>
+    <hr>
+    <div class="card-body">
+        <p><strong>Автор:</strong> {{ task.author.first_name }} {{ task.author.last_name }}</p>
+        <p><strong>Исполнитель:</strong> {% if task.executor %}{{ task.executor.first_name }} {{ task.executor.last_name }}{% else %}Не назначен{% endif %}</p>
+        <p><strong>Статус:</strong> {{ task.status.name }}</p>
+        <p><strong>Дата создания:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</p>
+    </div>
+    <div class="card-footer">
+        {% if task.author == request.user %}
+            <a href="{% url 'task_update' task.id %}" class="btn btn-success">Изменить</a>
+            <a href="{% url 'task_delete' task.id %}" class="btn btn-dark">Удалить</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
