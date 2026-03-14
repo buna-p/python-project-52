@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from statuses.models import Status
-# from labels.models import Label
+from labels.models import Label
 
 
 class Task(models.Model):
@@ -22,7 +22,7 @@ class Task(models.Model):
         related_name='tasks_executor',
         verbose_name='Исполнитель'
         )
-    # labels = models.ManyToManyField(Label, blank=True, verbose_name='Метки')
+    labels = models.ManyToManyField(Label, blank=True, verbose_name='Метки')
     created_at = models.DateTimeField(
         auto_now_add=True, verbose_name='Дата создания'
         )

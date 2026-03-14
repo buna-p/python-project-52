@@ -13,12 +13,25 @@
             </div>
         {% endif %}
     </div>
-    <hr>
+    <hr class="mb-0">
     <div class="card-body">
-        <p><strong>Автор:</strong> {{ task.author.first_name }} {{ task.author.last_name }}</p>
-        <p><strong>Исполнитель:</strong> {% if task.executor %}{{ task.executor.first_name }} {{ task.executor.last_name }}{% else %}Не назначен{% endif %}</p>
-        <p><strong>Статус:</strong> {{ task.status.name }}</p>
-        <p><strong>Дата создания:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</p>
+        <div class="col-sm-6 mb-1"><strong>Автор:</strong> {{ task.author.first_name }} {{ task.author.last_name }}</div>
+        <div class="col-sm-6 mb-1"><strong>Исполнитель:</strong> {% if task.executor %}{{ task.executor.first_name }} {{ task.executor.last_name }}{% else %}Не назначен{% endif %}</div>
+        <div class="col-sm-6 mb-1"><strong>Статус:</strong> {{ task.status.name }}</div>
+        <div class="col-sm-6 mb-1"><strong>Дата создания:</strong> {{ task.created_at|date:"d.m.Y H:i" }}</div>
+        <div class="col-sm-6 mb-1"><strong>Метки:</strong>
+            {% if task.labels.all %}
+                <ul>
+                    {% for label in task.labels.all %}
+                        <li class="mb-0">
+                            <span>{{ label.name }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                Нет меток
+            {% endif %}
+        </div>
     </div>
     <div class="card-footer">
         {% if task.author == request.user %}

@@ -6,12 +6,13 @@ from .models import Task
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['name', 'description', 'status', 'executor']
+        fields = ['name', 'description', 'status', 'executor', 'labels']
         labels = {
             'name': 'Имя',
             'description': 'Описание',
             'status': 'Статус',
             'executor': 'Исполнитель',
+            'labels': 'Метки',
         }
 
     def __init__(self, *args, **kwargs):
@@ -22,4 +23,6 @@ class TaskForm(forms.ModelForm):
                 field.widget.attrs['rows'] = 3
         self.fields['status'].empty_label = '---------'
         self.fields['executor'].empty_label = '---------'
+        self.fields['labels'].widget.attrs['size'] = 5
+        self.fields['labels'].widget.attrs['class'] = 'form-control'
         self.fields['executor'].queryset = User.objects.all()

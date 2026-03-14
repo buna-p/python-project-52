@@ -1,0 +1,8 @@
+{% extends "base_mark_list.html" %}
+
+{% block list_title %}Метки{% endblock %}
+{% block create_url %}{% url 'label_create' %}{% endblock %}
+{% block create_button %}Создать метку{% endblock %}
+{% block object_name %}{{ obj.name }}{% endblock %}
+{% block update_url %}{% url 'label_update' obj.id %}{% endblock %}
+{% block delete_url %}{% url 'label_delete' obj.id %}{% endblock %}
