@@ -5,14 +5,23 @@ from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from django.contrib import messages
 from .models import Task
+from .filters import TaskFilter
 from .forms import TaskForm
+from django_filters.views import FilterView
 
 
-class TaskListView(LoginRequiredMixin, ListView):
+class TaskListView(LoginRequiredMixin, FilterView):
     model = Task
+    filterset_class = TaskFilter
     template_name = 'tasks/task_list.html'
     context_object_name = 'tasks'
     login_url = reverse_lazy('login')
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.GET.get('self_tasks') == 'on':
+            queryset = queryset.filter(author=self.request.user)
+        return queryset
 
 
 class TaskDetailView(LoginRequiredMixin, DetailView):
