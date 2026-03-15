@@ -28,4 +28,5 @@ urlpatterns = [
     path('statuses/', include('statuses.urls')),
     path('tasks/', include('tasks.urls')),
     path('labels/', include('labels.urls')),
+    path('test-rollbar/', views.test_rollbar, name='test_rollbar'),
 ]
