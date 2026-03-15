@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import dj_database_url
 import os
+import rollbar
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -61,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    # 'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -128,7 +129,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-ROLLBAR = {
+'''ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),
     'environment': 'production' if not DEBUG else 'development',
     'branch': 'master',
@@ -136,4 +137,13 @@ ROLLBAR = {
     'capture_ip': False,
     'capture_username': False,
     'capture_email': False,
-}
+}'''
+
+ROLLBAR_TOKEN = os.getenv('ROLLBAR_ACCESS_TOKEN')
+if ROLLBAR_TOKEN:
+    rollbar.init(
+        access_token=ROLLBAR_TOKEN,
+        environment=os.getenv('ROLLBAR_ENVIRONMENT', 'production'),
+    )
+
+MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
