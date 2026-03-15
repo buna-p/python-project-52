@@ -67,5 +67,5 @@ class TaskDeleteView(
         return self.request.user == task.author
 
     def handle_no_permission(self):
-        messages.error(self.request, 'Задачу может удалить только ее автор')
+        messages.info(self.request, 'Задачу может удалить только ее автор')
         return redirect('tasks')
