@@ -145,5 +145,4 @@ if ROLLBAR_TOKEN:
         access_token=ROLLBAR_TOKEN,
         environment=os.getenv('ROLLBAR_ENVIRONMENT', 'production'),
     )
-
-MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
+    MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
