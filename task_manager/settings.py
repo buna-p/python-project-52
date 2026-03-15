@@ -138,11 +138,3 @@ ROLLBAR = {
     'capture_username': False,
     'capture_email': False,
 }
-
-'''ROLLBAR_TOKEN = os.getenv('ROLLBAR_ACCESS_TOKEN')
-if ROLLBAR_TOKEN:
-    rollbar.init(
-        access_token=ROLLBAR_TOKEN,
-        environment=os.getenv('ROLLBAR_ENVIRONMENT', 'production'),
-    )
-    MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')'''
