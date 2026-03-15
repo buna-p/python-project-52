@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -129,7 +129,7 @@ STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
-'''ROLLBAR = {
+ROLLBAR = {
     'access_token': os.getenv('ROLLBAR_ACCESS_TOKEN'),
     'environment': 'production' if not DEBUG else 'development',
     'branch': 'master',
@@ -137,12 +137,12 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     'capture_ip': False,
     'capture_username': False,
     'capture_email': False,
-}'''
+}
 
-ROLLBAR_TOKEN = os.getenv('ROLLBAR_ACCESS_TOKEN')
+'''ROLLBAR_TOKEN = os.getenv('ROLLBAR_ACCESS_TOKEN')
 if ROLLBAR_TOKEN:
     rollbar.init(
         access_token=ROLLBAR_TOKEN,
         environment=os.getenv('ROLLBAR_ENVIRONMENT', 'production'),
     )
-    MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')
+    MIDDLEWARE.append('rollbar.contrib.django.middleware.RollbarNotifierMiddleware')'''
