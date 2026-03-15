@@ -10,5 +10,7 @@ select = ["E", "F", "I", "C90"]
 
 exclude = [
     "migrations",
+    "**/migrations",
+    "**/migrations/*",
     "task_manager/settings.py",
 ]

@@ -1,6 +1,5 @@
-from django.test import TestCase
-
 from django.contrib.auth.models import User
+from django.test import TestCase
 from django.urls import reverse
 
 
@@ -20,14 +19,14 @@ class UserCRUDTest(TestCase):
         self.assertContains(response, 'other')
 
     def test_registration(self):
-        response = self.client.post(reverse('user_create'), {
+        response = self.client.post(
+            reverse('user_create'), {
             'username': 'newuser',
             'password1': 'complex_password_123',
             'password2': 'complex_password_123',
-        })
+        }, follow=True)
         self.assertRedirects(response, reverse('login'))
         self.assertTrue(User.objects.filter(username='newuser').exists())
-        response = self.client.get(reverse('login'))
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(
@@ -35,7 +34,8 @@ class UserCRUDTest(TestCase):
             )
 
     def test_login(self):
-        response = self.client.post(reverse('login'), {
+        response = self.client.post(
+            reverse('login'), {
             'username': 'testuser',
             'password': '12345',
         })

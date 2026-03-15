@@ -1,6 +1,6 @@
 from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.models import User
 
 
 class UserUpdateForm(forms.ModelForm):
@@ -39,7 +39,13 @@ class UserLoginForm(AuthenticationForm):
 class UserRegistrationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = User
-        fields = ('first_name', 'last_name', 'username', 'password1', 'password2')
+        fields = (
+            'first_name',
+            'last_name',
+            'username',
+            'password1',
+            'password2'
+            )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

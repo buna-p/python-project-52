@@ -7,6 +7,13 @@ collectstatic:
 migrate:
 	python3 manage.py migrate --noinput
 
+dev:
+	python3 manage.py runserver
+
+tests:
+	uv run ruff check .
+	python3 manage.py test
+
 build:
 	./build.sh
 

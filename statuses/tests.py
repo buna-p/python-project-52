@@ -1,6 +1,7 @@
-from django.test import TestCase
 from django.contrib.auth.models import User
+from django.test import TestCase
 from django.urls import reverse
+
 from .models import Status
 
 
@@ -32,11 +33,10 @@ class StatusCRUDTest(TestCase):
     def test_create_status_logged_in(self):
         self.client.login(username='testuser', password='12345')
         response = self.client.post(
-            reverse('status_create'), {'name': 'В работе'}
+            reverse('status_create'), {'name': 'В работе'}, follow=True
             )
         self.assertRedirects(response, reverse('statuses'))
         self.assertTrue(Status.objects.filter(name='В работе').exists())
-        response = self.client.get(reverse('statuses'))
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]), 'Статус успешно создан')
