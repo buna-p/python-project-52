@@ -60,7 +60,7 @@ class TaskDeleteView(
     template_name = 'tasks/task_confirm_delete.html'
     success_url = reverse_lazy('tasks:list')
     success_message = 'Задача успешно удалена'
-    login_url = reverse_lazy('users:login')
+    '''login_url = reverse_lazy('users:login')
 
     def test_func(self):
         task = self.get_object()
@@ -68,4 +68,10 @@ class TaskDeleteView(
 
     def handle_no_permission(self):
         messages.info(self.request, 'Задачу может удалить только ее автор')
-        return redirect('tasks:list')
+        return redirect('tasks:list')'''
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if request.user != self.object.author:
+            messages.error(request, 'Задачу может удалить только ее автор')
+            return redirect('tasks:list')
+        return super().post(request, *args, **kwargs)
