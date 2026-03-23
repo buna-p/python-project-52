@@ -19,8 +19,8 @@
                 <td>{% block object_name %}{{ obj.name }}{% endblock %}</td>
                 <td class="text-end">{{ obj.created_at|date:"d.m.Y H:i" }}</td>
                 <td class="text-end">
-                    <a href="{% block update_url %}{% url 'label_update' obj.id %}{% endblock %}" class="btn btn-sm btn-success">Изменить</a>
-                    <a href="{% block delete_url %}{% url 'label_delete' obj.id %}{% endblock %}" class="btn btn-sm btn-dark">Удалить</a>
+                    <a href="{% block update_url %}#{% endblock %}" class="btn btn-sm btn-success">Изменить</a>
+                    <a href="{% block delete_url %}#{% endblock %}" class="btn btn-sm btn-dark">Удалить</a>
                 </td>
             </tr>
         {% endfor %}

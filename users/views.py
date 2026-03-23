@@ -19,7 +19,7 @@ class UserListView(ListView):
 class UserCreateView(SuccessMessageMixin, CreateView):
     form_class = UserRegistrationForm
     template_name = 'users/user_form.html'
-    success_url = reverse_lazy('login')
+    success_url = reverse_lazy('users:login')
     success_message = 'Пользователь успешно зарегистрирован'
 
 
@@ -29,7 +29,7 @@ class UserUpdateView(
     model = User
     form_class = UserUpdateForm
     template_name = 'users/user_form.html'
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('users:list')
     success_message = 'Пользователь успешно изменен'
 
     def test_func(self):
@@ -38,7 +38,7 @@ class UserUpdateView(
 
     def handle_no_permission(self):
         messages.error(self.request, 'У вас нет прав для изменения')
-        return redirect('users')
+        return redirect('users:list')
 
 
 class UserDeleteView(
@@ -46,7 +46,7 @@ class UserDeleteView(
     ):
     model = User
     template_name = 'users/user_confirm_delete.html'
-    success_url = reverse_lazy('users')
+    success_url = reverse_lazy('users:list')
     success_message = 'Пользователь успешно удален'
 
     def test_func(self):
@@ -54,8 +54,8 @@ class UserDeleteView(
         return self.request.user == obj
 
     def handle_no_permission(self):
-        messages.error(self.request, 'У вас нет прав для изменения')
-        return redirect('users')
+        messages.error(self.request, 'У вас нет прав для удаления')
+        return redirect('users:list')
     
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -65,7 +65,7 @@ class UserDeleteView(
                 request,
                 'Невозможно удалить пользователя, связанного с задачами'
                 )
-            return redirect('users')
+            return redirect('users:list')
         return super().post(request, *args, **kwargs)
 
 

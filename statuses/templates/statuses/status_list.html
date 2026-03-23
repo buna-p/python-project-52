@@ -1,8 +1,8 @@
 {% extends "base_mark_list.html" %}
 
 {% block list_title %}Статусы{% endblock %}
-{% block create_url %}{% url 'status_create' %}{% endblock %}
+{% block create_url %}{% url 'statuses:create' %}{% endblock %}
 {% block create_button %}Создать статус{% endblock %}
 {% block object_name %}{{ obj.name }}{% endblock %}
-{% block update_url %}{% url 'status_update' obj.id %}{% endblock %}
-{% block delete_url %}{% url 'status_delete' obj.id %}{% endblock %}
+{% block update_url %}{% url 'statuses:update' obj.id %}{% endblock %}
+{% block delete_url %}{% url 'statuses:delete' obj.id %}{% endblock %}

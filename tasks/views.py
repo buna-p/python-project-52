@@ -16,7 +16,7 @@ class TaskListView(LoginRequiredMixin, FilterView):
     filterset_class = TaskFilter
     template_name = 'tasks/task_list.html'
     context_object_name = 'tasks'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('users:login')
 
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -28,16 +28,16 @@ class TaskListView(LoginRequiredMixin, FilterView):
 class TaskDetailView(LoginRequiredMixin, DetailView):
     model = Task
     template_name = 'tasks/task_detail.html'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('users:login')
 
 
 class TaskCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
     template_name = 'tasks/task_form.html'
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('tasks:list')
     success_message = 'Задача успешно создана'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -48,9 +48,9 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Task
     form_class = TaskForm
     template_name = 'tasks/task_form.html'
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('tasks:list')
     success_message = 'Задача успешно изменена'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('users:login')
 
 
 class TaskDeleteView(
@@ -58,9 +58,9 @@ class TaskDeleteView(
     ):
     model = Task
     template_name = 'tasks/task_confirm_delete.html'
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('tasks:list')
     success_message = 'Задача успешно удалена'
-    login_url = reverse_lazy('login')
+    login_url = reverse_lazy('users:login')
 
     def test_func(self):
         task = self.get_object()
@@ -68,4 +68,4 @@ class TaskDeleteView(
 
     def handle_no_permission(self):
         messages.info(self.request, 'Задачу может удалить только ее автор')
-        return redirect('tasks')
+        return redirect('tasks:list')

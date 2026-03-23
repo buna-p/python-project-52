@@ -21,8 +21,8 @@
                 <td class="text-end">{{ user.date_joined|date:"d.m.Y H:i" }}</td>
                 <td class="text-end">
                     {% if user == request.user %}
-                        <a href="{% url 'user_update' user.id %}" class="btn btn-sm btn-success">Изменить</a>
-                        <a href="{% url 'user_delete' user.id %}" class="btn btn-sm btn-dark">Удалить</a>
+                        <a href="{% url 'users:update' user.id %}" class="btn btn-sm btn-success">Изменить</a>
+                        <a href="{% url 'users:delete' user.id %}" class="btn btn-sm btn-dark">Удалить</a>
                     {% endif %}
                 </td>
             </tr>

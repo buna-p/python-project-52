@@ -15,33 +15,33 @@
                 <div class="collapse navbar-collapse" id="navbarsExample07">
                     {% with request.resolver_match.url_name as url_name %}
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item"><a class="nav-link {% if url_name == 'users' %}active{% endif %}" href="{% url 'users' %}">Пользователи</a></li>
+                            <li class="nav-item"><a class="nav-link {% if namespace == 'users' and url_name == 'list' %}active{% endif %}" href="{% url 'users:list' %}">Пользователи</a></li>
                             {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <a class="nav-link {% if url_name == 'statuses' %}active{% endif %}" href="{% url 'statuses' %}">Статусы</a>
+                                    <a class="nav-link {% if namespace == 'statuses' and url_name == 'list' %}active{% endif %}" href="{% url 'statuses:list' %}">Статусы</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {% if url_name == 'tasks' %}active{% endif %}" href="{% url 'tasks' %}">Задачи</a>
+                                    <a class="nav-link {% if namespace == 'tasks' and url_name == 'list' %}active{% endif %}" href="{% url 'tasks:list' %}">Задачи</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {% if url_name == 'labels' %}active{% endif %}" href="{% url 'labels' %}">Метки</a>
+                                    <a class="nav-link {% if namespace == 'labels' and url_name == 'list' %}active{% endif %}" href="{% url 'labels:list' %}">Метки</a>
                                 </li>
                             {% endif %}
                         </ul>
                         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                             {% if user.is_authenticated %}
                                 <li class="nav-item">
-                                    <form method="post" action="{% url 'logout' %}">
+                                    <form method="post" action="{% url 'users:logout' %}">
                                         {% csrf_token %}
                                         <button type="submit" class="nav-link btn btn-link">Выход</button>
                                     </form>
                                 </li>
                             {% else %}
                                 <li class="nav-item">
-                                    <a class="nav-link {% if url_name == 'login' %}active{% endif %}" href="{% url 'login' %}">Вход</a>
+                                    <a class="nav-link {% if url_name == 'login' %}active{% endif %}" href="{% url 'users:login' %}">Вход</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link {% if url_name == 'user_create' %}active{% endif %}" href="{% url 'user_create' %}">Регистрация</a>
+                                    <a class="nav-link {% if namespace == 'users' and url_name == 'create' %}active{% endif %}" href="{% url 'users:create' %}">Регистрация</a>
                                 </li>
                             {% endif %}
                         </ul>

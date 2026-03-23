@@ -2,4 +2,4 @@
 
 {% block delete_title %}Удаление пользователя{% endblock %}
 {% block delete_message %}Вы уверены, что хотите удалить пользователя "{{ object.username }}"?{% endblock %}
-{% block cancel_url %}{% url 'users' %}{% endblock %}
+{% block cancel_url %}{% url 'users:list' %}{% endblock %}
