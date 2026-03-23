@@ -93,8 +93,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
-if 'test' in sys.argv:
-
+if os.getenv('DISABLE_PASSWORD_VALIDATORS', '') == '1':
     AUTH_PASSWORD_VALIDATORS = []
 else:
     AUTH_PASSWORD_VALIDATORS = [
