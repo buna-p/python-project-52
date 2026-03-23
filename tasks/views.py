@@ -72,6 +72,6 @@ class TaskDeleteView(
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         if request.user != self.object.author:
-            messages.error(request, 'Задачу может удалить только ее автор')
+            messages.info(request, 'Задачу может удалить только ее автор')
             return redirect('tasks:list')
         return super().post(request, *args, **kwargs)
