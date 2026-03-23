@@ -54,7 +54,7 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 class TaskDeleteView(
-    LoginRequiredMixin, UserPassesTestMixin, SuccessMessageMixin, DeleteView
+    LoginRequiredMixin, SuccessMessageMixin, DeleteView
     ):
     model = Task
     template_name = 'tasks/task_confirm_delete.html'
