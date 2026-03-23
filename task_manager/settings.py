@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 
 import dj_database_url
 import os
-import sys
 
 from pathlib import Path
 from dotenv import load_dotenv
@@ -93,7 +92,7 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
 
-if os.getenv('DISABLE_PASSWORD_VALIDATORS', '') == '1':
+if os.getenv('DISABLE_PASSWORD_VALIDATORS') == '1':
     AUTH_PASSWORD_VALIDATORS = []
 else:
     AUTH_PASSWORD_VALIDATORS = [
