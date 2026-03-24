@@ -9,6 +9,4 @@ urlpatterns = [
     path('create/', views.UserCreateView.as_view(), name='create'),
     path('<int:pk>/update/ ', views.UserUpdateView.as_view(), name='update'),  # noqa: E501
     path('<int:pk>/delete/', views.UserDeleteView.as_view(), name='delete'),  # noqa: E501
-    path('login/', views.UserLoginView.as_view(), name='login'),
-    path('logout/', views.UserLogoutView.as_view(), name='logout'),
 ]

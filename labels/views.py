@@ -13,7 +13,7 @@ class LabelListView(LoginRequiredMixin, ListView):
     model = Label
     template_name = 'labels/label_list.html'
     context_object_name = 'labels'
-    login_url = reverse_lazy('users:login')
+    login_url = reverse_lazy('login')
 
 
 class LabelCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -22,7 +22,7 @@ class LabelCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'labels/label_form.html'
     success_url = reverse_lazy('labels:list')
     success_message = 'Метка успешно создана'
-    login_url = reverse_lazy('users:login')
+    login_url = reverse_lazy('login')
 
 
 class LabelUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -31,7 +31,7 @@ class LabelUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'labels/label_form.html'
     success_url = reverse_lazy('labels:list')
     success_message = 'Метка успешно изменена'
-    login_url = reverse_lazy('users:login')
+    login_url = reverse_lazy('login')
 
 
 class LabelDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
@@ -39,7 +39,7 @@ class LabelDeleteView(LoginRequiredMixin, SuccessMessageMixin, DeleteView):
     template_name = 'labels/label_confirm_delete.html'
     success_url = reverse_lazy('labels:list')
     success_message = 'Метка успешно удалена'
-    login_url = reverse_lazy('users:login')
+    login_url = reverse_lazy('login')
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()

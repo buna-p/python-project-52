@@ -18,7 +18,7 @@ class StatusCRUDTest(TestCase):
         response = self.client.get(reverse('statuses:list'))
         self.assertRedirects(
             response,
-            f"{reverse('users:login')}?next={reverse('statuses:list')}"
+            f"{reverse('login')}?next={reverse('statuses:list')}"
         )
 
     def test_list_statuses_logged_in(self):
@@ -32,7 +32,7 @@ class StatusCRUDTest(TestCase):
         response = self.client.get(reverse('statuses:create'))
         self.assertRedirects(
             response,
-            f"{reverse('users:login')}?next={reverse('statuses:create')}"
+            f"{reverse('login')}?next={reverse('statuses:create')}"
         )
 
     def test_create_status_logged_in(self):

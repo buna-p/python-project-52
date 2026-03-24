@@ -19,7 +19,7 @@ class TaskCRUDTest(TestCase):
     def test_list_tasks_not_logged_in(self):
         response = self.client.get(reverse('tasks:list'))
         self.assertRedirects(
-            response, f"{reverse('users:login')}?next={reverse('tasks:list')}"
+            response, f"{reverse('login')}?next={reverse('tasks:list')}"
         )
 
     def test_list_tasks_logged_in(self):
@@ -34,7 +34,7 @@ class TaskCRUDTest(TestCase):
     def test_create_task_not_logged_in(self):
         response = self.client.get(reverse('tasks:create'))
         self.assertRedirects(
-            response, f"{reverse('users:login')}?next={reverse('tasks:create')}"
+            response, f"{reverse('login')}?next={reverse('tasks:create')}"
         )
 
     def test_create_task_logged_in(self):

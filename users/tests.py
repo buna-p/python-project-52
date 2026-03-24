@@ -22,7 +22,7 @@ class UserCRUDTest(TestCase):
             'password1': 'complex_password_123',
             'password2': 'complex_password_123',
         }, follow=True)
-        self.assertRedirects(response, reverse('users:login'))
+        self.assertRedirects(response, reverse('login'))
         self.assertTrue(User.objects.filter(username='newuser').exists())
         messages = list(response.context['messages'])
         self.assertEqual(len(messages), 1)
@@ -31,7 +31,7 @@ class UserCRUDTest(TestCase):
         )
 
     def test_login(self):
-        response = self.client.post(reverse('users:login'), {
+        response = self.client.post(reverse('login'), {
             'username': 'testuser',
             'password': '12345',
         }, follow=True)
@@ -40,7 +40,7 @@ class UserCRUDTest(TestCase):
 
     def test_logout(self):
         self.client.login(username='testuser', password='12345')
-        response = self.client.post(reverse('users:logout'), follow=True)
+        response = self.client.post(reverse('logout'), follow=True)
         self.assertRedirects(response, reverse('index'))
         self.assertFalse('_auth_user_id' in self.client.session)
 

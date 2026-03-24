@@ -19,7 +19,7 @@ class LabelCRUDTest(TestCase):
     def test_list_labels_not_logged_in(self):
         response = self.client.get(reverse('labels:list'))
         self.assertRedirects(
-            response, f"{reverse('users:login')}?next={reverse('labels:list')}"
+            response, f"{reverse('login')}?next={reverse('labels:list')}"
         )
 
     def test_list_labels_logged_in(self):
@@ -33,7 +33,7 @@ class LabelCRUDTest(TestCase):
         response = self.client.get(reverse('labels:create'))
         self.assertRedirects(
             response,
-            f"{reverse('users:login')}?next={reverse('labels:create')}"
+            f"{reverse('login')}?next={reverse('labels:create')}"
         )
 
     def test_create_label_logged_in(self):
