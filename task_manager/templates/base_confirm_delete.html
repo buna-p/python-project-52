@@ -7,7 +7,7 @@
         <p>{% block delete_message %}{% endblock %}</p>
         <form method="post">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Да, удалить</button>
+            <input type="submit" class="btn btn-danger" value="Да, удалить">
             <a href="{% block cancel_url %}#{% endblock %}" class="btn btn-secondary">Отмена</a>
         </form>
     </div>
