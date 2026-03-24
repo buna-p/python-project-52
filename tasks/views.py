@@ -66,4 +66,4 @@ class TaskDeleteView(
         if request.user != self.object.author:
             messages.info(request, 'Задачу может удалить только ее автор')
             return redirect('tasks:list')
-        return super().delete(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
