@@ -56,12 +56,15 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = 'tasks/task_confirm_delete.html'
+    success_url = reverse_lazy('tasks:list')
 
-    def post(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
         if request.user != self.object.author:
             messages.error(request, 'Задачу может удалить только ее автор')
-            return redirect('/tasks/')
-        self.object.delete()
+            return redirect(self.success_url)
+        return super().dispatch(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
         messages.success(request, 'Задача успешно удалена')
-        return redirect('/tasks/')
+        return super().delete(request, *args, **kwargs)
