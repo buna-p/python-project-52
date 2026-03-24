@@ -56,13 +56,12 @@ class TaskUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     template_name = 'tasks/task_confirm_delete.html'
-    success_url = '/tasks/'
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
         if request.user != self.object.author:
             messages.error(request, 'Задачу может удалить только ее автор')
-            return redirect('/tasks/')
-        response = super().post(request, *args, **kwargs)
+            return redirect('tasks:list')
+        self.object.delete()
         messages.success(request, 'Задача успешно удалена')
-        return response
+        return redirect('tasks:list')
