@@ -65,6 +65,8 @@ class TaskDeleteView(LoginRequiredMixin, DeleteView):
             return redirect(self.success_url)
         return super().dispatch(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.object.delete()
         messages.success(request, 'Задача успешно удалена')
-        return super().delete(request, *args, **kwargs)
+        return redirect(self.success_url)
