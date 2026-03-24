@@ -27,3 +27,4 @@ class TaskForm(forms.ModelForm):
         self.fields['labels'].widget.attrs['size'] = 5
         self.fields['labels'].widget.attrs['class'] = 'form-control'
         self.fields['executor'].queryset = User.objects.all()
+        self.fields['executor'].label_from_instance = lambda obj: f"{obj.first_name} {obj.last_name}".strip() or obj.username  # noqa: E501
